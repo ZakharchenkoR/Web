@@ -1,16 +1,14 @@
-using Data.DataServices.Base;
-using Data.DataServices.IDataServices;
-using Data.Domain;
-using Data.Domain.DataManager;
+using Data.DataContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services.AppInterfaces;
 using WebApp.AppConfig;
+using WebApp.Service;
 
 namespace WebApp
 {
@@ -27,12 +25,7 @@ namespace WebApp
         {
             _configuration.Bind("Project", new Config());
 
-            services.AddTransient<ITextFieldRepository, TextFieldService>();
-            services.AddTransient<IServiceItemRepository, ServiceItemService>();
-            services.AddTransient<DataManager>();
-
-            services.AddDbContext<AppDbContext>(x => x.UseSqlServer(Config.ConnectionString));
-
+            services.AddSingleton<IDataServiceFactory, DataServiceFactory>();
             services.AddIdentity<IdentityUser, IdentityRole>(x =>
             {
                 x.User.RequireUniqueEmail = true;
