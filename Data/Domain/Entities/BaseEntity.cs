@@ -5,6 +5,11 @@ namespace Data.Domain.Entities
 {
     public abstract class BaseEntity
     {
+        protected BaseEntity()
+        {
+            DateAdded = DateTime.UtcNow;
+        }
+
         [Required]
         public Guid Id { get; set; }
 
