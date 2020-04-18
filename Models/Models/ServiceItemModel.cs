@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Models.Models
+﻿namespace Models.Models
 {
     public class ServiceItemModel : BaseModel
     {
