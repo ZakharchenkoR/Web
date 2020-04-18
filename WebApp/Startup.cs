@@ -1,4 +1,5 @@
 using Data.DataContext;
+using DomainServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Services.AppInterfaces;
+using Services.DomainInterfaces;
 using WebApp.AppConfig;
 using WebApp.Service;
 
@@ -26,6 +28,9 @@ namespace WebApp
             _configuration.Bind("Project", new Config());
 
             services.AddSingleton<IDataServiceFactory, DataServiceFactory>();
+            services.AddSingleton<IServiceItemService, ServiceItemService>();
+            services.AddSingleton<ITextFieldService, TextFieldService>();
+
             services.AddIdentity<IdentityUser, IdentityRole>(x =>
             {
                 x.User.RequireUniqueEmail = true;
