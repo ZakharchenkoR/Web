@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Models.Models
 {
-    class TextFieldModel
+    public class TextFieldModel : BaseModel
     {
+        public string CodeWord { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Models.Models
 {
-    class ServiceItemModel
+    public class ServiceItemModel : BaseModel
     {
     }
 }
