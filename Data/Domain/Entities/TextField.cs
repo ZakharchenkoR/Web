@@ -2,7 +2,7 @@
 
 namespace Data.Domain.Entities
 {
-    class TextField : BaseEntity
+    public class TextField : BaseEntity
     {
         [Required]
         public string CodeWord { get; set; }
