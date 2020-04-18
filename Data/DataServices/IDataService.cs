@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Data.DataServices
 {
-    public interface IDataService
+    public interface IDataService : IDisposable
     {
         #region ServiceItem
         Task<IList<ServiceItem>> GetServiceItemsAsync();
