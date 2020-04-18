@@ -1,10 +1,16 @@
+using Data.DataContext;
+using DomainServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services.AppInterfaces;
+using Services.DomainInterfaces;
 using WebApp.AppConfig;
+using WebApp.Service;
 
 namespace WebApp
 {
@@ -20,6 +26,30 @@ namespace WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             _configuration.Bind("Project", new Config());
+
+            services.AddSingleton<IDataServiceFactory, DataServiceFactory>();
+            services.AddSingleton<IServiceItemService, ServiceItemService>();
+            services.AddSingleton<ITextFieldService, TextFieldService>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>(x =>
+            {
+                x.User.RequireUniqueEmail = true;
+                x.Password.RequiredLength = 6;
+                x.Password.RequireNonAlphanumeric = false;
+                x.Password.RequireLowercase = false;
+                x.Password.RequireUppercase = false;
+                x.Password.RequireDigit = false;
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(x =>
+            {
+                x.Cookie.Name = "myCompanyAuth";
+                x.Cookie.HttpOnly = true;
+                x.LoginPath = "/account/login";
+                x.AccessDeniedPath = "/account/accessdenied";
+                x.SlidingExpiration = true;
+            });
+
             services.AddControllersWithViews().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
         }
 
@@ -30,8 +60,12 @@ namespace WebApp
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
             app.UseStaticFiles();
+            app.UseRouting();
+
+            app.UseCookiePolicy();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
