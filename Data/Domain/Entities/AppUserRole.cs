@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Data.Domain.Entities
 {
-    class AppUserRole
+    public class AppUserRole
     {
         [Required]
         public Guid Id { get; set; }
@@ -15,5 +16,10 @@ namespace Data.Domain.Entities
         [Required]
         public Guid RoleId { get; set; }
         public AppRole AppRole { get; set; }
+
+        public IReadOnlyList<AppRole> Roles { get; set; }
+        public IReadOnlyList<AppUser> Users { get; set; }
+
+
     }
 }

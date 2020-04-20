@@ -16,6 +16,9 @@ namespace Data.DataContext
 
         public DbSet<TextField> TextFields { get; set; }
         public DbSet<ServiceItem> ServiceItems { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<AppRole> AppRoles { get; set; }
+        public DbSet<AppUserRole> AppUserRoles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -46,6 +49,7 @@ namespace Data.DataContext
 
             modelBuilder.Entity<AppUserRole>().HasData(new AppUserRole
             {
+                Id = new Guid ("c2487303-39dc-4b9b-9437-811ce2656edb"),
                 UserId = new Guid("d84014c0-b6db-4d6c-899d-5678d6df922a"),
                 RoleId = new Guid("389447a5-6944-410a-8963-d966b1164fa2")
             });
