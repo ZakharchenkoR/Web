@@ -1,4 +1,5 @@
-﻿using Data.Domain.Entities;
+﻿using Data.DataServices;
+using Data.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -28,6 +29,8 @@ namespace Data.DataContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.OnDeleteRestrict<AppUser, AppRole>(x => x.Role, x => x.Users);
 
             modelBuilder.Entity<AppRole>().HasData(new AppRole
             {

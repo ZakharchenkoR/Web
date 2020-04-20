@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Data.Domain.Entities
@@ -12,5 +13,7 @@ namespace Data.Domain.Entities
         public string Name { get; set; }
 
         public string NormalizedName { get; set; }
+
+        public IReadOnlyCollection<AppUser> Users { get; }
     }
 }

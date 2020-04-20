@@ -162,7 +162,8 @@ namespace Data.DataServices.Base
 
         private IQueryable<AppUser> GetAppUsersQuery()
         {
-            IQueryable<AppUser> items = _dataSource.AppUsers;
+            IQueryable<AppUser> items = _dataSource.AppUsers
+                .Include(appUser => appUser.Role);
             return items;
         }
         #endregion

@@ -9,6 +9,10 @@ namespace Data.Domain.Entities
         public Guid Id { get; set; }
 
         [Required]
+        public Guid RoleId { get; set; }
+        public AppRole Role { get; set; }
+
+        [Required]
         public string Name { get; set; }
         public string NormalizedName { get; set; }
         public string Email { get; set; }
