@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Services.AppInterfaces;
 using Services.DomainInterfaces;
 using WebApp.AppConfig;
+using WebApp.Common;
 using WebApp.Service;
 
 namespace WebApp
@@ -50,7 +51,19 @@ namespace WebApp
                 x.SlidingExpiration = true;
             });
 
-            services.AddControllersWithViews().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
+            services.AddAuthorization(x =>
+            {
+                x.AddPolicy("AdminArea", policy =>
+                {
+                    policy.RequireRole("admin");
+                });
+            });
+
+            services.AddControllersWithViews(x =>
+            {
+                x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
