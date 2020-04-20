@@ -8,7 +8,7 @@ namespace Services.DomainInterfaces
 {
     public interface IUserService
     {
-        Task<IList<ApplicationUserModel>> GetUserAsync();
+        Task<IList<ApplicationUserModel>> GetUsersAsync();
         Task<ApplicationUserModel> GetUserAsync(Guid id);
         Task<ApplicationUserModel> GetUserAsync(Data.Common.DataRequest<AppUser> request);
         Task<int> UpdateUserAsync(ApplicationUserModel entity);

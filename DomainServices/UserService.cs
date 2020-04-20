@@ -29,7 +29,7 @@ namespace DomainServices
             }
         }
 
-        public async Task<IList<ApplicationUserModel>> GetUserAsync()
+        public async Task<IList<ApplicationUserModel>> GetUsersAsync()
         {
             using (var dataService = _dataServiceFactory.CreateDataService())
             {

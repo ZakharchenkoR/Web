@@ -1,9 +1,7 @@
-using Data.DataContext;
 using DomainServices;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,10 +32,6 @@ namespace WebApp
             services.AddSingleton<ITextFieldService, TextFieldService>();
             services.AddSingleton<IUserService, UserService>();
 
-            //services.AddIdentity<IdentityUser, IdentityRole>()
-            // .AddEntityFrameworkStores<AppDbContext>()
-            // .AddDefaultTokenProviders();
-
             services.ConfigureApplicationCookie(x =>
             {
                 x.Cookie.Name = "myCompanyAuth";
@@ -48,29 +42,25 @@ namespace WebApp
             });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-               .AddCookie(options => //CookieAuthenticationOptions
+               .AddCookie(options =>
                 {
-                    options.Cookie.Name = "myCompanyAuth";
-                    options.Cookie.HttpOnly = true;
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-                    options.AccessDeniedPath = "/account/accessdenied";
-                    options.SlidingExpiration = true;
                 });
 
-            services.AddAuthorization(x =>
-            {
-                x.AddPolicy("AdminArea", policy =>
-                {
-                    //policy.AuthenticationSchemes.Add("");
-                    policy.RequireRole("admin");
-                });
-            });
 
-            services.AddControllersWithViews(x =>
-            {
-                x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
-            })
-            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
+            //services.AddAuthorization(x =>
+            //{
+            //    x.AddPolicy("AdminArea", policy =>
+            //    {
+            //        policy.RequireRole("admin");
+            //    });
+            //});
+
+            //services.AddControllersWithViews(x =>
+            //{
+            //    x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
+            //})
+            services.AddControllersWithViews().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

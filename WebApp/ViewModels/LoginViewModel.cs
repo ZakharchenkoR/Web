@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Models.Models
+namespace WebApp.ViewModels
 {
-    public class LoginModel
+    public class LoginViewModel
     {
         [Required]
         [Display(Name = "Логин")]
