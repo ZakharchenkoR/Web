@@ -1,4 +1,5 @@
 using DomainServices;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -30,29 +31,30 @@ namespace WebApp
             services.AddSingleton<IServiceItemService, ServiceItemService>();
             services.AddSingleton<ITextFieldService, TextFieldService>();
 
-            //services.AddIdentity<IdentityUser, IdentityRole>(x =>
+            //services.ConfigureApplicationCookie(x =>
             //{
-            //    x.User.RequireUniqueEmail = true;
-            //    x.Password.RequiredLength = 6;
-            //    x.Password.RequireNonAlphanumeric = false;
-            //    x.Password.RequireLowercase = false;
-            //    x.Password.RequireUppercase = false;
-            //    x.Password.RequireDigit = false;
-            //}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            //    x.Cookie.Name = "myCompanyAuth";
+            //    x.Cookie.HttpOnly = true;
+            //    x.LoginPath = "/account/login";
+            //    x.AccessDeniedPath = "/account/accessdenied";
+            //    x.SlidingExpiration = true;
+            //});
 
-            services.ConfigureApplicationCookie(x =>
-            {
-                x.Cookie.Name = "myCompanyAuth";
-                x.Cookie.HttpOnly = true;
-                x.LoginPath = "/account/login";
-                x.AccessDeniedPath = "/account/accessdenied";
-                x.SlidingExpiration = true;
-            });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+               .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.Cookie.Name = "myCompanyAuth";
+                    options.Cookie.HttpOnly = true;
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    options.AccessDeniedPath = "/account/accessdenied";
+                    options.SlidingExpiration = true;
+                });
 
             services.AddAuthorization(x =>
             {
                 x.AddPolicy("AdminArea", policy =>
                 {
+                    //policy.AuthenticationSchemes.Add("");
                     policy.RequireRole("admin");
                 });
             });
