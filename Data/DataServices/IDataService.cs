@@ -40,7 +40,7 @@ namespace Data.DataServices
         Task<IList<AppUserRole>> GetUserRoleAsync();
         Task<AppUserRole> GetUserRoleAsync(Guid id);
         Task<int> UpdateUserItemAsync(AppUserRole entity);
-        Task<int> DeleteUserRoleField(AppUser[] entities);
+        Task<int> DeleteUserRoleField(AppUserRole[] entities);
         #endregion
     }
 }
