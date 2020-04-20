@@ -19,6 +19,119 @@ namespace Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Data.Domain.Entities.AppRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AppUserRoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserRoleId");
+
+                    b.ToTable("AppRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("389447a5-6944-410a-8963-d966b1164fa2"),
+                            Name = "admin",
+                            NormalizedName = "ADMIN"
+                        });
+                });
+
+            modelBuilder.Entity("Data.Domain.Entities.AppUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AppUserRoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserRoleId");
+
+                    b.ToTable("AppUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d84014c0-b6db-4d6c-899d-5678d6df922a"),
+                            Email = "superzaec22@gmail.com",
+                            EmailConfirmed = true,
+                            Name = "admin",
+                            NormalizedEmail = "SUPERZAEC22@GMAIL.COM",
+                            NormalizedName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEMAyb5ltYNM6OBIL7Q0bflq+sJ2sf13u12YNQqCO9P3z13et7SxfTMGd8fh5AVAhw=="
+                        });
+                });
+
+            modelBuilder.Entity("Data.Domain.Entities.AppUserRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AppRoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppRoleId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("AppUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c2487303-39dc-4b9b-9437-811ce2656edb"),
+                            RoleId = new Guid("389447a5-6944-410a-8963-d966b1164fa2"),
+                            UserId = new Guid("d84014c0-b6db-4d6c-899d-5678d6df922a")
+                        });
+                });
+
             modelBuilder.Entity("Data.Domain.Entities.ServiceItem", b =>
                 {
                     b.Property<Guid>("Id")
@@ -98,7 +211,7 @@ namespace Data.Migrations
                         {
                             Id = new Guid("b1fc43ca-5742-4283-87fb-474ff1c06128"),
                             CodeWord = "PageIndex",
-                            DateAdded = new DateTime(2020, 4, 18, 12, 38, 56, 913, DateTimeKind.Utc).AddTicks(2558),
+                            DateAdded = new DateTime(2020, 4, 20, 11, 4, 28, 12, DateTimeKind.Utc).AddTicks(8421),
                             Text = "Содержание заполняется администратором",
                             Title = "Главная"
                         },
@@ -106,7 +219,7 @@ namespace Data.Migrations
                         {
                             Id = new Guid("091a9051-3f71-4782-b1d1-c8da75e6629a"),
                             CodeWord = "PageServices",
-                            DateAdded = new DateTime(2020, 4, 18, 12, 38, 56, 913, DateTimeKind.Utc).AddTicks(4857),
+                            DateAdded = new DateTime(2020, 4, 20, 11, 4, 28, 13, DateTimeKind.Utc).AddTicks(473),
                             Text = "Содержание заполняется администратором",
                             Title = "Наши услуги"
                         },
@@ -114,7 +227,7 @@ namespace Data.Migrations
                         {
                             Id = new Guid("ebc491bb-ff1a-4c77-acf4-d49358802e6d"),
                             CodeWord = "PageContacts",
-                            DateAdded = new DateTime(2020, 4, 18, 12, 38, 56, 913, DateTimeKind.Utc).AddTicks(4934),
+                            DateAdded = new DateTime(2020, 4, 20, 11, 4, 28, 13, DateTimeKind.Utc).AddTicks(546),
                             Text = "Содержание заполняется администратором",
                             Title = "Контакты"
                         });
@@ -150,7 +263,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = "389447a5-6944-410a-8963-d966b1164fa2",
-                            ConcurrencyStamp = "b2d500bd-ab01-4aea-912f-e3d8ae0d3fcb",
+                            ConcurrencyStamp = "122ad5c9-bd41-4eff-9d75-43ddb857fc1b",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -249,13 +362,13 @@ namespace Data.Migrations
                         {
                             Id = "d84014c0-b6db-4d6c-899d-5678d6df922a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f2037e00-97d5-4b9b-a609-4f9d7b0d2f01",
+                            ConcurrencyStamp = "08609d86-e3ad-4d89-a85a-5cc1b80485a3",
                             Email = "superzaec22@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERZAEC22@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMuHpYot4VHlShg312TtLD6u1raZbBfdeZ1unJZIN7PuDEXlJ0qK2c6GG1D3saRtZA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMS9ip4Et7rpC61yE8wb+tqcqONqVafV98YmZvHPgk4/j1KQwElfnS7L+E/XboXPhw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -348,6 +461,31 @@ namespace Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Data.Domain.Entities.AppRole", b =>
+                {
+                    b.HasOne("Data.Domain.Entities.AppUserRole", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("AppUserRoleId");
+                });
+
+            modelBuilder.Entity("Data.Domain.Entities.AppUser", b =>
+                {
+                    b.HasOne("Data.Domain.Entities.AppUserRole", null)
+                        .WithMany("Users")
+                        .HasForeignKey("AppUserRoleId");
+                });
+
+            modelBuilder.Entity("Data.Domain.Entities.AppUserRole", b =>
+                {
+                    b.HasOne("Data.Domain.Entities.AppRole", "AppRole")
+                        .WithMany()
+                        .HasForeignKey("AppRoleId");
+
+                    b.HasOne("Data.Domain.Entities.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

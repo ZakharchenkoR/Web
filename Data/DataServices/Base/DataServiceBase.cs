@@ -90,6 +90,133 @@ namespace Data.DataServices.Base
         }
         #endregion
 
+        #region AppRole
+        public async Task<IList<AppRole>> GetRoleAsync()
+        {
+            var items = await GetAppRolesQuery().AsNoTracking().ToListAsync();
+            return items;
+        }
+
+        public async Task<AppRole> GetRoleAsync(Guid id)
+        {
+            return await _dataSource.AppRoles.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<int> UpdateRoleAsync(AppRole entity)
+        {
+            if (entity.Id != Guid.Empty)
+            {
+                _dataSource.Entry(entity).State = EntityState.Modified;
+            }
+            else
+            {
+                _dataSource.Entry(entity).State = EntityState.Added;
+            }
+            return await _dataSource.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteRoleAsync(AppRole[] entities)
+        {
+            _dataSource.AppRoles.RemoveRange(entities);
+            return await _dataSource.SaveChangesAsync();
+        }
+
+        private IQueryable<AppRole> GetAppRolesQuery()
+        {
+            IQueryable<AppRole> items = _dataSource.AppRoles;
+            return items;
+        }
+        #endregion
+
+        #region AppUser
+        public async Task<IList<AppUser>> GetUsersAsync()
+        {
+            var items = await GetAppUsersQuery().AsNoTracking().ToListAsync();
+            return items;
+        }
+
+        public async Task<AppUser> GetUserAsync(Guid id)
+        {
+            return await _dataSource.AppUsers.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<AppUser> GetUserAsync(Common.DataRequest<AppUser> request)
+        {
+            var item = await GetAppUsersQuery(request).FirstOrDefaultAsync();
+            return item;
+        }
+
+        public async Task<int> UpdateUserAsync(AppUser entity)
+        {
+            if (entity.Id != Guid.Empty)
+            {
+                _dataSource.Entry(entity).State = EntityState.Modified;
+            }
+            else
+            {
+                _dataSource.Entry(entity).State = EntityState.Added;
+            }
+            return await _dataSource.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteUserAsync(AppUser[] entities)
+        {
+            _dataSource.AppUsers.RemoveRange(entities);
+            return await _dataSource.SaveChangesAsync();
+        }
+
+
+        private IQueryable<AppUser> GetAppUsersQuery(Common.DataRequest<AppUser> request = null)
+        {
+            IQueryable<AppUser> items = _dataSource.AppUsers;
+
+            if (request.Where != null)
+            {
+                items = items.Where(request.Where);
+            }
+
+            return items;
+        }
+        #endregion
+
+        #region AppUserRole
+        public async Task<IList<AppUserRole>> GetUserRoleAsync()
+        {
+            var items = await GetAppUserRolesQuery().AsNoTracking().ToListAsync();
+            return items;
+        }
+
+        public async Task<AppUserRole> GetUserRoleAsync(Guid id)
+        {
+            return await _dataSource.AppUserRoles.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<int> UpdateUserAsync(AppUserRole entity)
+        {
+            if (entity.Id != Guid.Empty)
+            {
+                _dataSource.Entry(entity).State = EntityState.Modified;
+            }
+            else
+            {
+                _dataSource.Entry(entity).State = EntityState.Added;
+            }
+            return await _dataSource.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteUserRoleAsync(AppUserRole[] entities)
+        {
+            _dataSource.AppUserRoles.RemoveRange(entities);
+            return await _dataSource.SaveChangesAsync();
+        }
+
+        private IQueryable<AppUserRole> GetAppUserRolesQuery()
+        {
+            IQueryable<AppUserRole> items = _dataSource.AppUserRoles;
+            return items;
+        }
+        #endregion
+
         #region Dispose
         public void Dispose()
         {

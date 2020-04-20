@@ -1,8 +1,7 @@
-using Data.DataContext;
 using DomainServices;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Services.AppInterfaces;
 using Services.DomainInterfaces;
 using WebApp.AppConfig;
+using WebApp.Common;
 using WebApp.Service;
 
 namespace WebApp
@@ -30,16 +30,7 @@ namespace WebApp
             services.AddSingleton<IDataServiceFactory, DataServiceFactory>();
             services.AddSingleton<IServiceItemService, ServiceItemService>();
             services.AddSingleton<ITextFieldService, TextFieldService>();
-
-            services.AddIdentity<IdentityUser, IdentityRole>(x =>
-            {
-                x.User.RequireUniqueEmail = true;
-                x.Password.RequiredLength = 6;
-                x.Password.RequireNonAlphanumeric = false;
-                x.Password.RequireLowercase = false;
-                x.Password.RequireUppercase = false;
-                x.Password.RequireDigit = false;
-            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            services.AddSingleton<IUserService, UserService>();
 
             services.ConfigureApplicationCookie(x =>
             {
@@ -50,6 +41,25 @@ namespace WebApp
                 x.SlidingExpiration = true;
             });
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+               .AddCookie(options =>
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
+
+
+            //services.AddAuthorization(x =>
+            //{
+            //    x.AddPolicy("AdminArea", policy =>
+            //    {
+            //        policy.RequireRole("admin");
+            //    });
+            //});
+
+            //services.AddControllersWithViews(x =>
+            //{
+            //    x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
+            //})
             services.AddControllersWithViews().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
         }
 
@@ -69,6 +79,7 @@ namespace WebApp
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("admin", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }

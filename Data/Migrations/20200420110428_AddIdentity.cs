@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class AddIdentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,45 +44,6 @@ namespace Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ServiceItems",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    TitleImagePath = table.Column<string>(nullable: true),
-                    MetaTitle = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Keywords = table.Column<string>(nullable: true),
-                    DateAdded = table.Column<DateTime>(nullable: false),
-                    Title = table.Column<string>(nullable: false),
-                    Subtitle = table.Column<string>(nullable: true),
-                    Text = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServiceItems", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TextFields",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Subtitle = table.Column<string>(nullable: true),
-                    TitleImagePath = table.Column<string>(nullable: true),
-                    MetaTitle = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Keywords = table.Column<string>(nullable: true),
-                    DateAdded = table.Column<DateTime>(nullable: false),
-                    CodeWord = table.Column<string>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    Text = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TextFields", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -191,25 +152,43 @@ namespace Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.UpdateData(
+                table: "AppUsers",
+                keyColumn: "Id",
+                keyValue: new Guid("d84014c0-b6db-4d6c-899d-5678d6df922a"),
+                column: "PasswordHash",
+                value: "AQAAAAEAACcQAAAAEEMAyb5ltYNM6OBIL7Q0bflq+sJ2sf13u12YNQqCO9P3z13et7SxfTMGd8fh5AVAhw==");
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "389447a5-6944-410a-8963-d966b1164fa2", "b2d500bd-ab01-4aea-912f-e3d8ae0d3fcb", "admin", "ADMIN" });
+                values: new object[] { "389447a5-6944-410a-8963-d966b1164fa2", "122ad5c9-bd41-4eff-9d75-43ddb857fc1b", "admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "d84014c0-b6db-4d6c-899d-5678d6df922a", 0, "f2037e00-97d5-4b9b-a609-4f9d7b0d2f01", "superzaec22@gmail.com", true, false, null, "SUPERZAEC22@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEMuHpYot4VHlShg312TtLD6u1raZbBfdeZ1unJZIN7PuDEXlJ0qK2c6GG1D3saRtZA==", null, false, "", false, "admin" });
+                values: new object[] { "d84014c0-b6db-4d6c-899d-5678d6df922a", 0, "08609d86-e3ad-4d89-a85a-5cc1b80485a3", "superzaec22@gmail.com", true, false, null, "SUPERZAEC22@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEMS9ip4Et7rpC61yE8wb+tqcqONqVafV98YmZvHPgk4/j1KQwElfnS7L+E/XboXPhw==", null, false, "", false, "admin" });
 
-            migrationBuilder.InsertData(
+            migrationBuilder.UpdateData(
                 table: "TextFields",
-                columns: new[] { "Id", "CodeWord", "DateAdded", "Description", "Keywords", "MetaTitle", "Subtitle", "Text", "Title", "TitleImagePath" },
-                values: new object[,]
-                {
-                    { new Guid("b1fc43ca-5742-4283-87fb-474ff1c06128"), "PageIndex", new DateTime(2020, 4, 18, 12, 38, 56, 913, DateTimeKind.Utc).AddTicks(2558), null, null, null, null, "Содержание заполняется администратором", "Главная", null },
-                    { new Guid("091a9051-3f71-4782-b1d1-c8da75e6629a"), "PageServices", new DateTime(2020, 4, 18, 12, 38, 56, 913, DateTimeKind.Utc).AddTicks(4857), null, null, null, null, "Содержание заполняется администратором", "Наши услуги", null },
-                    { new Guid("ebc491bb-ff1a-4c77-acf4-d49358802e6d"), "PageContacts", new DateTime(2020, 4, 18, 12, 38, 56, 913, DateTimeKind.Utc).AddTicks(4934), null, null, null, null, "Содержание заполняется администратором", "Контакты", null }
-                });
+                keyColumn: "Id",
+                keyValue: new Guid("091a9051-3f71-4782-b1d1-c8da75e6629a"),
+                column: "DateAdded",
+                value: new DateTime(2020, 4, 20, 11, 4, 28, 13, DateTimeKind.Utc).AddTicks(473));
+
+            migrationBuilder.UpdateData(
+                table: "TextFields",
+                keyColumn: "Id",
+                keyValue: new Guid("b1fc43ca-5742-4283-87fb-474ff1c06128"),
+                column: "DateAdded",
+                value: new DateTime(2020, 4, 20, 11, 4, 28, 12, DateTimeKind.Utc).AddTicks(8421));
+
+            migrationBuilder.UpdateData(
+                table: "TextFields",
+                keyColumn: "Id",
+                keyValue: new Guid("ebc491bb-ff1a-4c77-acf4-d49358802e6d"),
+                column: "DateAdded",
+                value: new DateTime(2020, 4, 20, 11, 4, 28, 13, DateTimeKind.Utc).AddTicks(546));
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -274,16 +253,38 @@ namespace Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ServiceItems");
-
-            migrationBuilder.DropTable(
-                name: "TextFields");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.UpdateData(
+                table: "AppUsers",
+                keyColumn: "Id",
+                keyValue: new Guid("d84014c0-b6db-4d6c-899d-5678d6df922a"),
+                column: "PasswordHash",
+                value: "AQAAAAEAACcQAAAAELVFWCCkxY8CdfOMCQSqMdPZ3OUxJbVwgvO/e1L4yOZJSgglnONxofTji3kyiWMcJg==");
+
+            migrationBuilder.UpdateData(
+                table: "TextFields",
+                keyColumn: "Id",
+                keyValue: new Guid("091a9051-3f71-4782-b1d1-c8da75e6629a"),
+                column: "DateAdded",
+                value: new DateTime(2020, 4, 20, 10, 5, 54, 551, DateTimeKind.Utc).AddTicks(9541));
+
+            migrationBuilder.UpdateData(
+                table: "TextFields",
+                keyColumn: "Id",
+                keyValue: new Guid("b1fc43ca-5742-4283-87fb-474ff1c06128"),
+                column: "DateAdded",
+                value: new DateTime(2020, 4, 20, 10, 5, 54, 551, DateTimeKind.Utc).AddTicks(6150));
+
+            migrationBuilder.UpdateData(
+                table: "TextFields",
+                keyColumn: "Id",
+                keyValue: new Guid("ebc491bb-ff1a-4c77-acf4-d49358802e6d"),
+                column: "DateAdded",
+                value: new DateTime(2020, 4, 20, 10, 5, 54, 551, DateTimeKind.Utc).AddTicks(9657));
         }
     }
 }
