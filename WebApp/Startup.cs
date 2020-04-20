@@ -1,8 +1,6 @@
-using Data.DataContext;
 using DomainServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,15 +30,15 @@ namespace WebApp
             services.AddSingleton<IServiceItemService, ServiceItemService>();
             services.AddSingleton<ITextFieldService, TextFieldService>();
 
-            services.AddIdentity<IdentityUser, IdentityRole>(x =>
-            {
-                x.User.RequireUniqueEmail = true;
-                x.Password.RequiredLength = 6;
-                x.Password.RequireNonAlphanumeric = false;
-                x.Password.RequireLowercase = false;
-                x.Password.RequireUppercase = false;
-                x.Password.RequireDigit = false;
-            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            //services.AddIdentity<IdentityUser, IdentityRole>(x =>
+            //{
+            //    x.User.RequireUniqueEmail = true;
+            //    x.Password.RequiredLength = 6;
+            //    x.Password.RequireNonAlphanumeric = false;
+            //    x.Password.RequireLowercase = false;
+            //    x.Password.RequireUppercase = false;
+            //    x.Password.RequireDigit = false;
+            //}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(x =>
             {

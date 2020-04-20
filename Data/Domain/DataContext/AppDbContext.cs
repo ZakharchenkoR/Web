@@ -1,11 +1,11 @@
 ﻿using Data.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Data.DataContext
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser>, IDataSource
+    public class AppDbContext : DbContext, IDataSource
     {
         private readonly string _connectionString = null;
 
@@ -26,48 +26,47 @@ namespace Data.DataContext
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            modelBuilder.Entity<AppRole>().HasData(new AppRole
             {
-                Id = "389447a5-6944-410a-8963-d966b1164fa2",
+                Id = new Guid("389447a5-6944-410a-8963-d966b1164fa2"),
                 Name = "admin",
                 NormalizedName = "ADMIN"
             });
 
-            modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
+            modelBuilder.Entity<AppUser>().HasData(new AppUser
             {
-                Id = "d84014c0-b6db-4d6c-899d-5678d6df922a",
-                UserName = "admin",
-                NormalizedUserName = "ADMIN",
+                Id = new Guid("d84014c0-b6db-4d6c-899d-5678d6df922a"),
+                Name = "admin",
+                NormalizedName = "ADMIN",
                 Email = "superzaec22@gmail.com",
                 NormalizedEmail = "SUPERZAEC22@GMAIL.COM",
                 EmailConfirmed = true,
-                PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "superpassword"),
-                SecurityStamp = string.Empty
+                PasswordHash = new PasswordHasher<AppUser>().HashPassword(null, "superpassword"),
             });
 
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            modelBuilder.Entity<AppUserRole>().HasData(new AppUserRole
             {
-                UserId = "d84014c0-b6db-4d6c-899d-5678d6df922a",
-                RoleId = "389447a5-6944-410a-8963-d966b1164fa2"
+                UserId = new Guid("d84014c0-b6db-4d6c-899d-5678d6df922a"),
+                RoleId = new Guid("389447a5-6944-410a-8963-d966b1164fa2")
             });
 
             modelBuilder.Entity<TextField>().HasData(new TextField
             {
-                Id = new System.Guid("b1fc43ca-5742-4283-87fb-474ff1c06128"),
+                Id = new Guid("b1fc43ca-5742-4283-87fb-474ff1c06128"),
                 CodeWord = "PageIndex",
                 Title = "Главная"
             });
 
             modelBuilder.Entity<TextField>().HasData(new TextField
             {
-                Id = new System.Guid("091a9051-3f71-4782-b1d1-c8da75e6629a"),
+                Id = new Guid("091a9051-3f71-4782-b1d1-c8da75e6629a"),
                 CodeWord = "PageServices",
                 Title = "Наши услуги"
             });
 
             modelBuilder.Entity<TextField>().HasData(new TextField
             {
-                Id = new System.Guid("ebc491bb-ff1a-4c77-acf4-d49358802e6d"),
+                Id = new Guid("ebc491bb-ff1a-4c77-acf4-d49358802e6d"),
                 CodeWord = "PageContacts",
                 Title = "Контакты"
             });
