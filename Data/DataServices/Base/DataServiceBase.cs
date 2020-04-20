@@ -140,6 +140,12 @@ namespace Data.DataServices.Base
             return await _dataSource.AppUsers.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<AppUser> GetUserAsync(Common.DataRequest<AppUser> request)
+        {
+            var item = await GetAppUsersQuery(request).FirstOrDefaultAsync();
+            return item;
+        }
+
         public async Task<int> UpdateUserItemAsync(AppUser entity)
         {
             if (entity.Id != Guid.Empty)
@@ -160,9 +166,15 @@ namespace Data.DataServices.Base
         }
 
 
-        private IQueryable<AppUser> GetAppUsersQuery()
+        private IQueryable<AppUser> GetAppUsersQuery(Common.DataRequest<AppUser> request = null)
         {
             IQueryable<AppUser> items = _dataSource.AppUsers;
+
+            if (request.Where != null)
+            {
+                items = items.Where(request.Where);
+            }
+
             return items;
         }
         #endregion

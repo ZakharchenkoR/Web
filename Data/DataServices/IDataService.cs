@@ -32,6 +32,7 @@ namespace Data.DataServices
         #region AppUser
         Task<IList<AppUser>> GetUserAsync();
         Task<AppUser> GetUserAsync(Guid id);
+        Task<AppUser> GetUserAsync(Common.DataRequest<AppUser> request);
         Task<int> UpdateUserItemAsync(AppUser entity);
         Task<int> DeleteUserField(AppUser[] entities);
         #endregion
