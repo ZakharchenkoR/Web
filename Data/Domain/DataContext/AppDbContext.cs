@@ -30,8 +30,6 @@ namespace Data.DataContext
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.OnDeleteRestrict<AppUser, AppRole>(x => x.Role, x => x.Users);
-
             modelBuilder.Entity<AppRole>().HasData(new AppRole
             {
                 Id = new Guid("389447a5-6944-410a-8963-d966b1164fa2"),

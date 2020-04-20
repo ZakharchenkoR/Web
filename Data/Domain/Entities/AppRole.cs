@@ -13,7 +13,5 @@ namespace Data.Domain.Entities
         public string Name { get; set; }
 
         public string NormalizedName { get; set; }
-
-        public IReadOnlyCollection<AppUser> Users { get; }
     }
 }

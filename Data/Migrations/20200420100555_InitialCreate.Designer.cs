@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200420093137_InitialCreate")]
+    [Migration("20200420100555_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,9 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("AppUserRoleId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -35,6 +38,8 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserRoleId");
 
                     b.ToTable("AppRoles");
 
@@ -51,6 +56,9 @@ namespace Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AppUserRoleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
@@ -74,6 +82,8 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserRoleId");
+
                     b.ToTable("AppUsers");
 
                     b.HasData(
@@ -85,7 +95,7 @@ namespace Data.Migrations
                             Name = "admin",
                             NormalizedEmail = "SUPERZAEC22@GMAIL.COM",
                             NormalizedName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMswgw5tZFanxZFP3Eooh1cyYHFt6ZGgIjqm5zx5+E27WenwRx6dYxcb//uMya2qrQ=="
+                            PasswordHash = "AQAAAAEAACcQAAAAELVFWCCkxY8CdfOMCQSqMdPZ3OUxJbVwgvO/e1L4yOZJSgglnONxofTji3kyiWMcJg=="
                         });
                 });
 
@@ -95,6 +105,12 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("AppRoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
@@ -102,6 +118,10 @@ namespace Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppRoleId");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("AppUserRoles");
 
@@ -193,7 +213,7 @@ namespace Data.Migrations
                         {
                             Id = new Guid("b1fc43ca-5742-4283-87fb-474ff1c06128"),
                             CodeWord = "PageIndex",
-                            DateAdded = new DateTime(2020, 4, 20, 9, 31, 36, 419, DateTimeKind.Utc).AddTicks(5947),
+                            DateAdded = new DateTime(2020, 4, 20, 10, 5, 54, 551, DateTimeKind.Utc).AddTicks(6150),
                             Text = "Содержание заполняется администратором",
                             Title = "Главная"
                         },
@@ -201,7 +221,7 @@ namespace Data.Migrations
                         {
                             Id = new Guid("091a9051-3f71-4782-b1d1-c8da75e6629a"),
                             CodeWord = "PageServices",
-                            DateAdded = new DateTime(2020, 4, 20, 9, 31, 36, 419, DateTimeKind.Utc).AddTicks(8049),
+                            DateAdded = new DateTime(2020, 4, 20, 10, 5, 54, 551, DateTimeKind.Utc).AddTicks(9541),
                             Text = "Содержание заполняется администратором",
                             Title = "Наши услуги"
                         },
@@ -209,10 +229,35 @@ namespace Data.Migrations
                         {
                             Id = new Guid("ebc491bb-ff1a-4c77-acf4-d49358802e6d"),
                             CodeWord = "PageContacts",
-                            DateAdded = new DateTime(2020, 4, 20, 9, 31, 36, 419, DateTimeKind.Utc).AddTicks(8114),
+                            DateAdded = new DateTime(2020, 4, 20, 10, 5, 54, 551, DateTimeKind.Utc).AddTicks(9657),
                             Text = "Содержание заполняется администратором",
                             Title = "Контакты"
                         });
+                });
+
+            modelBuilder.Entity("Data.Domain.Entities.AppRole", b =>
+                {
+                    b.HasOne("Data.Domain.Entities.AppUserRole", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("AppUserRoleId");
+                });
+
+            modelBuilder.Entity("Data.Domain.Entities.AppUser", b =>
+                {
+                    b.HasOne("Data.Domain.Entities.AppUserRole", null)
+                        .WithMany("Users")
+                        .HasForeignKey("AppUserRoleId");
+                });
+
+            modelBuilder.Entity("Data.Domain.Entities.AppUserRole", b =>
+                {
+                    b.HasOne("Data.Domain.Entities.AppRole", "AppRole")
+                        .WithMany()
+                        .HasForeignKey("AppRoleId");
+
+                    b.HasOne("Data.Domain.Entities.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
                 });
 #pragma warning restore 612, 618
         }
