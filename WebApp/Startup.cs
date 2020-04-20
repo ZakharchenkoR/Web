@@ -1,7 +1,9 @@
+using Data.DataContext;
 using DomainServices;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,14 +33,17 @@ namespace WebApp
             services.AddSingleton<IServiceItemService, ServiceItemService>();
             services.AddSingleton<ITextFieldService, TextFieldService>();
 
-            //services.ConfigureApplicationCookie(x =>
-            //{
-            //    x.Cookie.Name = "myCompanyAuth";
-            //    x.Cookie.HttpOnly = true;
-            //    x.LoginPath = "/account/login";
-            //    x.AccessDeniedPath = "/account/accessdenied";
-            //    x.SlidingExpiration = true;
-            //});
+            services.AddIdentity<IdentityUser, IdentityRole>();
+            
+
+            services.ConfigureApplicationCookie(x =>
+            {
+                x.Cookie.Name = "myCompanyAuth";
+                x.Cookie.HttpOnly = true;
+                x.LoginPath = "/account/login";
+                x.AccessDeniedPath = "/account/accessdenied";
+                x.SlidingExpiration = true;
+            });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                .AddCookie(options => //CookieAuthenticationOptions
