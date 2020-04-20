@@ -32,7 +32,8 @@ namespace WebApp
             services.AddSingleton<IDataServiceFactory, DataServiceFactory>();
             services.AddSingleton<IServiceItemService, ServiceItemService>();
             services.AddSingleton<ITextFieldService, TextFieldService>();
-            
+            services.AddSingleton<IUserService, UserService>();
+
             //services.AddIdentity<IdentityUser, IdentityRole>()
             // .AddEntityFrameworkStores<AppDbContext>()
             // .AddDefaultTokenProviders();

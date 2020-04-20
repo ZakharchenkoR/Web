@@ -102,7 +102,7 @@ namespace Data.DataServices.Base
             return await _dataSource.AppRoles.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<int> UpdateRoleItemAsync(AppRole entity)
+        public async Task<int> UpdateRoleAsync(AppRole entity)
         {
             if (entity.Id != Guid.Empty)
             {
@@ -115,7 +115,7 @@ namespace Data.DataServices.Base
             return await _dataSource.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteRoleField(AppRole[] entities)
+        public async Task<int> DeleteRoleAsync(AppRole[] entities)
         {
             _dataSource.AppRoles.RemoveRange(entities);
             return await _dataSource.SaveChangesAsync();
@@ -129,7 +129,7 @@ namespace Data.DataServices.Base
         #endregion
 
         #region AppUser
-        public async Task<IList<AppUser>> GetUserAsync()
+        public async Task<IList<AppUser>> GetUsersAsync()
         {
             var items = await GetAppUsersQuery().AsNoTracking().ToListAsync();
             return items;
@@ -146,7 +146,7 @@ namespace Data.DataServices.Base
             return item;
         }
 
-        public async Task<int> UpdateUserItemAsync(AppUser entity)
+        public async Task<int> UpdateUserAsync(AppUser entity)
         {
             if (entity.Id != Guid.Empty)
             {
@@ -159,7 +159,7 @@ namespace Data.DataServices.Base
             return await _dataSource.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteUserField(AppUser[] entities)
+        public async Task<int> DeleteUserAsync(AppUser[] entities)
         {
             _dataSource.AppUsers.RemoveRange(entities);
             return await _dataSource.SaveChangesAsync();
@@ -191,7 +191,7 @@ namespace Data.DataServices.Base
             return await _dataSource.AppUserRoles.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<int> UpdateUserItemAsync(AppUserRole entity)
+        public async Task<int> UpdateUserAsync(AppUserRole entity)
         {
             if (entity.Id != Guid.Empty)
             {
@@ -204,7 +204,7 @@ namespace Data.DataServices.Base
             return await _dataSource.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteUserRoleField(AppUserRole[] entities)
+        public async Task<int> DeleteUserRoleAsync(AppUserRole[] entities)
         {
             _dataSource.AppUserRoles.RemoveRange(entities);
             return await _dataSource.SaveChangesAsync();

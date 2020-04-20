@@ -24,24 +24,24 @@ namespace Data.DataServices
         #region AppRole
         Task<IList<AppRole>> GetRoleAsync();
         Task<AppRole> GetRoleAsync(Guid id);
-        Task<int> UpdateRoleItemAsync(AppRole entity);
-        Task<int> DeleteRoleField(AppRole[] entities);
+        Task<int> UpdateRoleAsync(AppRole entity);
+        Task<int> DeleteRoleAsync(AppRole[] entities);
         #endregion
 
 
         #region AppUser
-        Task<IList<AppUser>> GetUserAsync();
+        Task<IList<AppUser>> GetUsersAsync();
         Task<AppUser> GetUserAsync(Guid id);
         Task<AppUser> GetUserAsync(Common.DataRequest<AppUser> request);
-        Task<int> UpdateUserItemAsync(AppUser entity);
-        Task<int> DeleteUserField(AppUser[] entities);
+        Task<int> UpdateUserAsync(AppUser entity);
+        Task<int> DeleteUserAsync(AppUser[] entities);
         #endregion
 
         #region AppUserRole
         Task<IList<AppUserRole>> GetUserRoleAsync();
         Task<AppUserRole> GetUserRoleAsync(Guid id);
-        Task<int> UpdateUserItemAsync(AppUserRole entity);
-        Task<int> DeleteUserRoleField(AppUserRole[] entities);
+        Task<int> UpdateUserAsync(AppUserRole entity);
+        Task<int> DeleteUserRoleAsync(AppUserRole[] entities);
         #endregion
     }
 }
