@@ -14,36 +14,36 @@ namespace Data.Installers
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<AppDbContext>(x => x.UseSqlServer(configuration.GetConnectionString));
+            //services.AddDbContext<AppDbContext>(x => x.UseSqlServer(configuration.GetConnectionString));
 
-            services.ConfigureApplicationCookie(x =>
-            {
-                x.Cookie.Name = "myCompanyAuth";
-                x.Cookie.HttpOnly = true;
-                x.LoginPath = "/account/login";
-                x.AccessDeniedPath = "/account/accessdenied";
-                x.SlidingExpiration = true;
-            });
+            //services.ConfigureApplicationCookie(x =>
+            //{
+            //    x.Cookie.Name = "myCompanyAuth";
+            //    x.Cookie.HttpOnly = true;
+            //    x.LoginPath = "/account/login";
+            //    x.AccessDeniedPath = "/account/accessdenied";
+            //    x.SlidingExpiration = true;
+            //});
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-               .AddCookie(options =>
-               {
-                   options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-               });
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //   .AddCookie(options =>
+            //   {
+            //       options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+            //   });
 
 
-            services.AddAuthorization(x =>
-            {
-                x.AddPolicy("AdminArea", policy =>
-                {
-                    policy.RequireRole("admin");
-                });
-            });
+            //services.AddAuthorization(x =>
+            //{
+            //    x.AddPolicy("AdminArea", policy =>
+            //    {
+            //        policy.RequireRole("admin");
+            //    });
+            //});
 
-            services.AddControllersWithViews(x =>
-            {
-                x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
-            });
+            //services.AddControllersWithViews(x =>
+            //{
+            //    x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
+            //});
         }
     }
 }
