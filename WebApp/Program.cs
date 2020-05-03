@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Data.Domain.DataContext;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace WebApp

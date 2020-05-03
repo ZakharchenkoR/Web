@@ -1,2 +1,19 @@
-﻿<h1>Index</h1>
+﻿@model IList<Models.Models.PhoneModel>
+@{
+    ViewData["Title"] = "Index";
+}
 
+<div>
+    <div>
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <h2>@item.Name</h2>
+                    <h3>@item.ManufacturerModel.Name</h3>
+                    <h4>@item.Price</h4>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
