@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AppInterfaces\" />
     <Folder Include="DomainInterfaces\" />
   </ItemGroup>
 
