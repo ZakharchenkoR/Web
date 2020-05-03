@@ -1,4 +1,4 @@
-﻿@model IList<Data.Domain.Entities.Model>
+﻿@model IList<Models.Models.PhoneModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -10,7 +10,7 @@
             {
                 <li>
                     <h2>@item.Name</h2>
-                    <h3>@item.Manufacturer.Name</h3>
+                    <h3>@item.ManufacturerModel.Name</h3>
                     <h4>@item.Price</h4>
                 </li>
             }

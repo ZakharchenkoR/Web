@@ -1,21 +1,21 @@
-﻿using DomainServices.Common;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Services.Common;
 using System.Threading.Tasks;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        public readonly IDataManager _dataManager;
+        public readonly IServiceManager _serviceManager;
 
-        public HomeController(IDataManager dataManager)
+        public HomeController(IServiceManager serviceManager)
         {
-            _dataManager = dataManager;
+            _serviceManager = serviceManager;
         }
 
         public async Task<IActionResult> Index()
         {
-            var items = await _dataManager.ModelRepository.GetModelsAsync();
+            var items = await _serviceManager.PhoneService.GetPhoneModelsAsync();
             return View(items);
         }
     }
