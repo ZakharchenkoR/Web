@@ -20,5 +20,7 @@ namespace Data.Domain.Entities
         [Required]
         public Guid CountryId { get; set; }
         public Country Country { get; set; }
+
+        public IReadOnlyCollection<Model> Models { get; }
     }
 }

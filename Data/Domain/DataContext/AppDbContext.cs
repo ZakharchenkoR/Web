@@ -1,4 +1,5 @@
-﻿using Data.Domain.Entities;
+﻿using Data.Common;
+using Data.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
@@ -45,6 +46,9 @@ namespace Data.Domain.DataContext
                 new Model{Id = new System.Guid("0b97a35a-d8b7-4704-925a-27cd8a3803a5"), ManufacturerId = Manufacturer.Huawei.Id, Name = "P40 Pro", Price = 28000, Count = 1000},
                 new Model{Id = new System.Guid("92d01c5c-5056-49db-a323-a65b1de1b218"), ManufacturerId = Manufacturer.Samsung.Id, Name = "P20 Pro", Price = 32000, Count = 1000}
             });
+
+            modelBuilder.OnDeleteRestrict<Manufacturer, Country>(x => x.Country, x => x.Manufacturers);
+            modelBuilder.OnDeleteRestrict<Model, Manufacturer>(x => x.Manufacturer, x => x.Models);
         }
     }
 }

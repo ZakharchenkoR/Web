@@ -12,5 +12,7 @@ namespace Data.Domain.Entities
 
         [Required]
         public override string Name { get; set; }
+
+        public IReadOnlyCollection<Manufacturer> Manufacturers { get; }
     }
 }
