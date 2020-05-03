@@ -12,7 +12,12 @@ namespace Data.Domain.Entities
         public Guid ManufacturerId { get; set; }
         public Manufacturer Manufacturer { get; set; }
 
+        [Required]
+
         public decimal Price { get; set; }
+
+        [Required]
+
         public int Count { get; set; }
     }
 }
