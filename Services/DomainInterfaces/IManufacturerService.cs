@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Services.AppInterfaces
+namespace Services.DomainInterfaces
 {
     public interface IManufacturerService
     {
