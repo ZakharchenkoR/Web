@@ -15,4 +15,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DataServices\Base\" />
+    <Folder Include="Domain\DataContext\" />
+    <Folder Include="Domain\Entities\" />
+  </ItemGroup>
+
 </Project>

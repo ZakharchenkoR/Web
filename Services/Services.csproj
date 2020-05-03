@@ -9,4 +9,9 @@
     <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AppInterfaces\" />
+    <Folder Include="DomainInterfaces\" />
+  </ItemGroup>
+
 </Project>
