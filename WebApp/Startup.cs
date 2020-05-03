@@ -1,8 +1,6 @@
 using Data.Domain.DataContext;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,13 +34,9 @@ namespace WebApp
             app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseCookiePolicy();
-            app.UseAuthentication();
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
-                
+                endpoints.MapControllerRoute(name: "default", pattern:"{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
