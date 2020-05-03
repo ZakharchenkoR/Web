@@ -8,8 +8,8 @@ namespace Data.Domain.DataContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Manufacturer> Manufacturers;
-        public DbSet<Phone> Phones;
+        public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<Phone> Phones { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
