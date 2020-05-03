@@ -1,4 +1,7 @@
 using Data.Domain.DataContext;
+using DomainServices.Common;
+using DomainServices.EFDomainServices;
+using DomainServices.ServiceInterfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +24,10 @@ namespace WebApp
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddTransient<IManufacturerRepository, EFManufacturerRepository>();
+            services.AddTransient<ICountryRepository, EFCountryRepository>();
+            services.AddTransient<IModelRepository, EFModelRepository>();
+            services.AddTransient<IDataManager, DataManager>();
             services.AddMvc();
         }
 

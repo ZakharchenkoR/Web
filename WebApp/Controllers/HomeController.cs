@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DomainServices.Common;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public readonly IDataManager _dataManager;
+
+        public HomeController(IDataManager dataManager)
         {
-            return View("Hello world");
+            _dataManager = dataManager;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var items = await _dataManager.ModelRepository.GetModelsAsync();
+            return View(items);
         }
     }
 }
