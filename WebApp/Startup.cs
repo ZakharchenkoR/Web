@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services.Common;
+using Services.DomainInterfaces;
+using Services.DomainServices;
 
 namespace WebApp
 {
@@ -28,6 +31,10 @@ namespace WebApp
             services.AddTransient<ICountryRepository, EFCountryRepository>();
             services.AddTransient<IModelRepository, EFModelRepository>();
             services.AddTransient<IDataManager, DataManager>();
+            services.AddTransient<IManufacturerService, ManufacturerService>();
+            services.AddTransient<IPhoneService, PhoneService>();
+            services.AddTransient<ICountryService, CountryService>();
+            services.AddTransient<IServiceManager, ServiceManager>();
             services.AddMvc();
         }
 
