@@ -10,9 +10,17 @@ namespace WebApp
 {
     public class Startup
     {
+        public readonly IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
