@@ -5,10 +5,12 @@ using System.Text;
 
 namespace Data.Domain.Entities
 {
-    public abstract class BaseEntity
+    public class Phone : BaseEntity
     {
+        public int Count { get; set; }
+
         [Required]
-        public virtual Guid Id { get; set; }
-        public virtual string Name { get; set; }
+        public Guid ManufacturerId { get; set; }
+        public Manufacturer Manufacturer { get; set; }
     }
 }
