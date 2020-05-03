@@ -8,7 +8,7 @@ namespace Data.Domain.DataContext
         public AppDbContext CreateDbContext(string[] args)
         {
             var optionBilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionBilder.UseSqlServer("Data Source=localhost;Initial Catalog=PhoneShop;Integrated Security=SSPI", x => x.MigrationsAssembly("DataLayer"));
+            optionBilder.UseSqlServer("Data Source=localhost;Initial Catalog=PhoneShop;Integrated Security=SSPI");
             return new AppDbContext(optionBilder.Options);
         }
     }
