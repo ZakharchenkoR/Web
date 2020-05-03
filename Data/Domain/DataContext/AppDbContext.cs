@@ -14,6 +14,22 @@ namespace Data.Domain.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Country>().HasData(new List<Country>
+            {
+                new Country { Id = new System.Guid("ef87c39b-2cc6-407e-b974-edbcf20781ad"), Name = "China" },
+                new Country { Id = new System.Guid("cc61583f-4ebd-4b68-8e41-b56822aec84e"), Name = "USA" },
+                new Country { Id = new System.Guid("fb13009a-e4d3-4770-8c77-957e78b61802"), Name = "South Korea" }
+            });
+
+            modelBuilder.Entity<Manufacturer>().HasData(new List<Manufacturer>
+            {
+                new Manufacturer { Id = new System.Guid("62d760f0-648a-4ee0-9923-b63effd17b5b"), CountryId = Country.USA.Id, Name = "Iphone" },
+                new Manufacturer { Id = new System.Guid("e8b5a606-0b3a-4a16-b15d-c6855d91a4ef"), CountryId = Country.USA.Id, Name = "Google" },
+                new Manufacturer { Id = new System.Guid("f639ccdd-39d5-40b5-98af-d07211f7b61a"), CountryId = Country.China.Id, Name = "Xiaomi" },
+                new Manufacturer { Id = new System.Guid("1bea5a7c-03ca-40a4-aad4-7911b69b39fd"), CountryId = Country.China.Id, Name = "Huawei" },
+                new Manufacturer { Id = new System.Guid("b12dabf7-4845-4788-b55e-b0d7e3d673fb"), CountryId = Country.SouthKorea.Id, Name = "Samsung" }
+            });
+
             modelBuilder.Entity<Model>().HasData(new List<Model>
             {
                 new Model{Id = new System.Guid("a85fbe94-7462-4690-ba65-921cc2b7f4e8"), ManufacturerId = Manufacturer.Google.Id, Name = "Pixel 2XL", Price = 8200, Count = 100},
