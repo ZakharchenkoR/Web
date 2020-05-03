@@ -13,11 +13,9 @@ namespace Data.Domain.Entities
         public Manufacturer Manufacturer { get; set; }
 
         [Required]
-
         public decimal Price { get; set; }
 
         [Required]
-
         public int Count { get; set; }
     }
 }
