@@ -13,5 +13,8 @@ namespace Data.Domain.Entities
         [Required]
         public Guid ManufacturerId { get; set; }
         public Manufacturer Manufacturer { get; set; }
+
+        public decimal Price { get; set; }
+        public int Count { get; set; }
     }
 }
