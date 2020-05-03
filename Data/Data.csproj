@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="DataServices\Base\" />
-    <Folder Include="Domain\DataContext\" />
   </ItemGroup>
 
 </Project>
