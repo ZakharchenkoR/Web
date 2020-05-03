@@ -5,17 +5,13 @@ using System.Text;
 
 namespace Data.Domain.Entities
 {
-    public class Phone : BaseEntity
+    public class Model : BaseEntity
     {
-        public decimal Price { get; set; }
-        public int Count { get; set; }
+        [Required]
+        public override string Name { get; set; }
 
         [Required]
         public Guid ManufacturerId { get; set; }
         public Manufacturer Manufacturer { get; set; }
-
-        [Required]
-        public Guid ModelId { get; set; }
-        public Model Model { get; set; }
     }
 }
